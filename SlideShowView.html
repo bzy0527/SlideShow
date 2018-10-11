@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>可切换展板</title>
+    <link rel="stylesheet" href="SlideShowView.css">
+    <script src="https://lc.dbazure.cn/dbfx/dbfx.js"></script>
+    <script src="https://lc.dbazure.cn/dbfx/dbfx.data.js"></script>
+
+    <script src="https://lc.dbazure.cn/dbfx/dbfx.commodel.js"></script>
+    <script src="https://lc.dbazure.cn/dbfx/dbfx.serializer.js"></script>
+    <script src="https://lc.dbazure.cn/dbfxui/dbfx.web.controls.js"></script>
+    <script src="https://lc.dbazure.cn/dbfx/dbfx.app.js"></script>
+
+    <script src="SlideShowView.js"></script>
+</head>
+<body>
+
+
+<script>
+    var ssv = new DBFX.Web.NavControls.SlideShowView();
+    document.body.appendChild(ssv.VisualElement);
+    ssv.Width = "400px";
+    ssv.Height = "300px";
+    ssv.CPM = "0";
+    ssv.ItemSource =    [{"ResType":"0","ResourceText":"广告","ResourceUri":"","ImageUrl":"./01.jpeg"},
+                        {"ResType":"0","ResourceText":"广告","ResourceUri":"","ImageUrl":"./02.jpeg"},
+                        {"ResType":"0","ResourceText":"广告","ResourceUri":"","ImageUrl":"./03.jpeg"}];
+</script>
+</body>
+</html>

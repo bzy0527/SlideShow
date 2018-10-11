@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>slideShow</title>
+    <link rel="stylesheet" href="slideShow.css">
+    <style>
+        *{
+            /*margin: 0px;*/
+            /*padding: 0px;*/
+        }
+    </style>
+    <script src="https://lc.dbazure.cn/dbfx/dbfx.js"></script>
+    <script src="https://lc.dbazure.cn/dbfx/dbfx.data.js"></script>
+
+    <script src="https://lc.dbazure.cn/dbfx/dbfx.commodel.js"></script>
+    <script src="https://lc.dbazure.cn/dbfx/dbfx.serializer.js"></script>
+    <script src="https://lc.dbazure.cn/dbfxui/dbfx.web.controls.js"></script>
+    <script src="https://lc.dbazure.cn/dbfx/dbfx.app.js"></script>
+
+    <script src="slideShow.js"></script>
+</head>
+<body>
+<div id="ss" style="width: 800px;height: 900px;"></div>
+
+<script>
+    var ss = DBFX.Web.NavControls.SlideShow();
+    var div = document.getElementById("ss");
+
+    div.appendChild(ss.VisualElement);
+    ss.Width = "600px";
+    ss.Height = "300px";
+    // ss.SwitchStyle = "roll";
+    // ss.PageIndicatorP = "top-center";
+    ss.ItemSource =    [{"ResType":"0","ResourceText":"广告","ResourceUri":"","ImageUrl":"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1537163543074&di=39629130a88325b8cfda44b44299e188&imgtype=0&src=http%3A%2F%2Fs9.knowsky.com%2Fbizhi%2Fl%2F20090808%2F200911223%2520%25288%2529.jpg"},
+                        {"ResType":"0","ResourceText":"广告","ResourceUri":"","ImageUrl":"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1537163619684&di=fc99039b2ca720491663109d5bab5944&imgtype=jpg&src=http%3A%2F%2Fimg2.imgtn.bdimg.com%2Fit%2Fu%3D1211487622%2C2001087975%26fm%3D214%26gp%3D0.jpg"},
+        {"ResType":"0","ResourceText":"广告","ResourceUri":"","ImageUrl":"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1537163644015&di=c6f4d35a3eef2a07348a0520d20df535&imgtype=0&src=http%3A%2F%2F5b0988e595225.cdn.sohucs.com%2Fimages%2F20171206%2Fb2b90935e62d4eacb87d17f4b0096727.jpeg"},
+        {"ResType":"0","ResourceText":"广告","ResourceUri":"","ImageUrl":"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1537758380&di=73d8f49c2f754f0332697be357f4679b&imgtype=jpg&er=1&src=http%3A%2F%2Fimg.hypesphere.com%2F2015-08-17-221634-62.jpg"},
+        {"ResType":"0","ResourceText":"广告","ResourceUri":"","ImageUrl":"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1537163675533&di=dacc963bfd2b89c2a4bc9df051965355&imgtype=0&src=http%3A%2F%2F5b0988e595225.cdn.sohucs.com%2Fimages%2F20171206%2F7c251dc42c884683a25a67804e319467.jpeg"},
+        {"ResType":"0","ResourceText":"广告","ResourceUri":"","ImageUrl":"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1537758418&di=d95bb7511ad74bbe38cd60b407494c8e&imgtype=jpg&er=1&src=http%3A%2F%2Fpuui.qpic.cn%2Fvcover_hz_pic%2F0%2Fli46pwpo3e4rsbrt1472527809.jpg%2F0"}];
+
+    document.body.onpagehide = function () {
+        console.log("helllooo");
+    }
+
+
+</script>
+</body>
+</html>

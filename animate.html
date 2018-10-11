@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>动画</title>
+    <style>
+        div{
+            width: 100px;
+            height: 100px;
+            background-color: #b78461;
+            border-radius: 50%;
+            position: relative;
+            border: 20px solid rgba(255, 255, 255, 0.13);
+        }
+    </style>
+</head>
+<body>
+<div id="animate"></div>
+<input type="button" id="btn" value="按钮">
+
+<script>
+    var cur = 0;
+    function animate(element,target) {
+        clearInterval(element.timeId);
+
+        var step = 10;
+        element.timeId = setInterval(function () {
+            cur += step;
+            if(Math.abs(target-cur)>Math.abs(step)){
+                element.style.left = cur+"px";
+            }else {
+                element.style.left = target + 'px';
+                cur = target;
+                clearInterval(element.timeId);
+                console.log(element.timeId);
+            }
+        },5);
+    }
+
+    var e = document.getElementById("animate");
+    var btn = document.getElementById("btn");
+    btn.onclick = function (ev) {
+        animate(e,800);
+    }
+
+</script>
+</body>
+</html>
