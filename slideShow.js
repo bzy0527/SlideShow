@@ -211,7 +211,7 @@ DBFX.Web.NavControls.SlideShow = function () {
         e.stopPropagation();
         if(ss.isOnePage) return;
         console.log("mouseover");
-        console.log(e.target.tagName);
+        // console.log(e.target.tagName);
         if(e.target.tagName != "IMG"){
             return;
         }
@@ -239,15 +239,16 @@ DBFX.Web.NavControls.SlideShow = function () {
     ss.VisualElement.ontouchstart = function (e) {
         console.log("手指触摸");
         if(ss.isOnePage) return;
-        e.preventDefault();
-        e.stopPropagation();
-        e.cancelBubble = true;
+        // e.preventDefault();
+        // e.stopPropagation();
+        // e.cancelBubble = true;
         ss.start_x = e.targetTouches[0].pageX;
         ss.start_y = e.targetTouches[0].pageY;
         clearInterval(ss.aniTimeId);
     }
 
     ss.VisualElement.ontouchmove = function (e) {
+        console.log("手指move");
         if(ss.isOnePage) return;
         e.preventDefault();
         ss.moved_x = e.targetTouches[0].pageX;
@@ -264,15 +265,20 @@ DBFX.Web.NavControls.SlideShow = function () {
         ss.handleTouchEnd(e);
     };
 
-    //处理手指触摸结束
+    //FIXME:处理手指触摸结束
     ss.handleTouchEnd = function (e) {
         console.log("handleTouchEnd");
+
         e.preventDefault();
-        if(ss.moved_x-ss.start_x >50){
+        if(ss.moved_x-ss.start_x >60){
             ss.handleLBtnClick();
-        }else if (ss.moved_x-ss.start_x < 50){
+        }else if (ss.moved_x-ss.start_x < -60){
             ss.handleRBtnClick();
+        }else {
+            ss.OnSlideClick(e);
         }
+
+        ss.moved_x = ss.start_x = undefined;
 
         clearTimeout(ss.timeOutId);
         ss.timeOutId = setTimeout(function () {
@@ -323,6 +329,37 @@ DBFX.Web.NavControls.SlideShow = function () {
 
     }
 
+    ss.OnSlideClick = function (ev) {
+        console.log(ev.target.dataContext);
+        var cmd = ev.target;
+        if(!cmd){
+            return;
+        }
+
+        //FIXME:处理点击事件
+        if (ss.SlideClick != undefined) {
+
+            if (ss.SlideClick.GetType() == "Command") {
+                ss.SlideClick.Sender = cmd;
+                ss.SlideClick.Execute();
+            }
+
+            if (ss.SlideClick.GetType() == "function") {
+                ss.SlideClick(ev,cmd);
+            }
+
+        }
+
+        if (cmd.dataContext.ResourceUri != undefined && cmd.dataContext.ResourceUri != "") {
+
+            var mode = 0;
+            if (!isNaN(cmd.dataContext.Mode*1))
+                mode = cmd.dataContext.Mode*1;
+            app.LoadAppResource(cmd.dataContext.ResourceUri, cmd.dataContext.ResourceText, cmd.dataContext, mode);
+        }
+
+    }
+
     //创建幻灯片
     ss.createSlideView = function () {
         ss.images = [];
@@ -333,8 +370,8 @@ DBFX.Web.NavControls.SlideShow = function () {
         var datas = ss.itemSource;
         // var bcr = ss.PageDiv.getBoundingClientRect();
         var bcr = window.getComputedStyle(ss.VisualElement,null);
-        console.log(bcr.height);
-        console.log(bcr.width);
+        // console.log(bcr.height);
+        // console.log(bcr.width);
         ss.cWidth = parseFloat(bcr.width);
 
         ss.PageDiv.style.width = parseFloat(bcr.width)*(datas.length+1)+100+"px";
@@ -350,22 +387,12 @@ DBFX.Web.NavControls.SlideShow = function () {
             imageE.onmousedown = function (ev){
                 ev.stopPropagation();
                 console.log("点击图片");
+
                 //TODO:处理点击事件
-                if (ss.SlideClick != undefined) {
+                ss.OnSlideClick(ev);
+            }
 
-                    if (ss.SlideClick.GetType() == "Command") {
-                        ss.SlideClick.Sender = ss;
-                        ss.SlideClick.Execute();
-                    }
-                }
-
-                if (this.dataContext.ResourceUri != undefined) {
-
-                    var mode = 0;
-                    if (this.dataContext.Mode != undefined)
-                        mode = this.dataContext.Mode;
-                    app.LoadAppResource(this.dataContext.ResourceUri, this.dataContext.ResourceText, this.dataContext, mode);
-                }
+            imageE.ontouchstart = function (ev) {
 
             }
 
