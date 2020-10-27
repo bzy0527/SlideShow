@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="643991c3-1560-4f1d-aaa8-c5fd248b3530" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/testDIV.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SlideShowDesigner.scrp" beforeDir="false" afterPath="$PROJECT_DIR$/SlideShowDesigner.scrp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/slideShow.html" beforeDir="false" afterPath="$PROJECT_DIR$/slideShow.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/slideShow.js" beforeDir="false" afterPath="$PROJECT_DIR$/slideShow.js" afterDir="false" />
     </list>
@@ -72,6 +70,7 @@
       <workItem from="1575866760148" duration="947000" />
       <workItem from="1578384674743" duration="1002000" />
       <workItem from="1579163856140" duration="1069000" />
+      <workItem from="1603695697410" duration="5345000" />
     </task>
     <servers />
   </component>
