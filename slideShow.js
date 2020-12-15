@@ -46,6 +46,8 @@ DBFX.Web.NavControls.SlideShow = function () {
         ss.SwitchDiv.onmousedown = function (e) {
             e.cancelBubble = false;
         }
+
+
     }
     //处理左侧按钮点击事件
     ss.handleLBtnClick = function (e) {
@@ -155,8 +157,8 @@ DBFX.Web.NavControls.SlideShow = function () {
 
         element.style.left = target + 'px';
 
-        ss.images[ss.preIndex].className = "NavControls_SlideShowImgContainer_pre";
-        ss.images[ss.curIndex].className = "NavControls_SlideShowImgContainer_next";
+        ss.images[ss.preIndex] && (ss.images[ss.preIndex].className = "NavControls_SlideShowImgContainer_pre");
+        ss.images[ss.curIndex] && (ss.images[ss.curIndex].className = "NavControls_SlideShowImgContainer_next");
     }
 
     ss.animate = ss.animate_fade;
@@ -217,6 +219,13 @@ DBFX.Web.NavControls.SlideShow = function () {
     ss.step = 50;
     ss.interval = 40;
 
+    
+    //界面尺寸改变 重新计算轮播尺寸
+    ss.resize = window.onresize;
+    window.addEventListener('resize',function (ev) {
+        (typeof ss.resize == 'function') && ss.resize(ev);
+        ss.ItemSource && (ss.ItemSource = ss.ItemSource);
+    },false);
 
     //处理鼠标悬停
     ss.VisualElement.onmouseover = function (e) {
@@ -317,6 +326,15 @@ DBFX.Web.NavControls.SlideShow = function () {
         set: function (v) {
             ss.itemSource = v;
 
+            if(!(Array.isArray(v) && v.length>0)){
+                ss.images = [];
+                ss.pageIndicators = [];
+                ss.PIDiv.innerHTML = "";
+                ss.PageDiv.innerHTML = "";
+                if (ss.aniTimeId)
+                    clearInterval(ss.aniTimeId);
+                return;
+            }
             ss.createSlideView();
 
             if (ss.aniTimeId)
@@ -325,7 +343,6 @@ DBFX.Web.NavControls.SlideShow = function () {
             ss.aniTimeId = undefined;
 
             if (ss.isOnePage) return;
-
             ss.aniTimeId = setInterval(ss.handleRBtnClick, ss.switchTime);
         }
     });
@@ -412,12 +429,13 @@ DBFX.Web.NavControls.SlideShow = function () {
 
     //创建幻灯片
     ss.createSlideView = function () {
+        var datas = ss.itemSource;
+
         ss.images = [];
         ss.pageIndicators = [];
-        ss.PIDiv.innerText = "";
-        ss.PageDiv.innerText = "";
-
-        var datas = ss.itemSource;
+        ss.PIDiv.innerHTML = "";
+        ss.PageDiv.innerHTML = "";
+        
         // var bcr = ss.PageDiv.getBoundingClientRect();
         var bcr = window.getComputedStyle(ss.VisualElement, null);
         // console.log(bcr.height);
@@ -451,7 +469,8 @@ DBFX.Web.NavControls.SlideShow = function () {
             imageE.className = "NavControls_SlideShowImg";
             imageE.src = datas[i].ImageUrl;
             ss.PageDiv.appendChild(imgContainerE);
-            imageE.style.width = parseFloat(bcr.width) + "px";
+            // imageE.style.width = parseFloat(bcr.width) + "px";
+            imgContainerE.style.width = parseFloat(bcr.width) + "px";
 
             if (datas.length == 1) {
                 ss.isOnePage = true;
@@ -480,8 +499,13 @@ DBFX.Web.NavControls.SlideShow = function () {
             }
 
         }
-
-        ss.PageDiv.appendChild(ss.PageDiv.children[0].cloneNode(true));
+        try{
+            ss.PageDiv.appendChild(ss.PageDiv.children[0].cloneNode(true));
+        }catch (e) {
+            
+        }
+        
+        
         if (ss.animationStyle == 1) {
             ss.images.forEach(function (item) {
                 item.className = "NavControls_SlideShowImgContainer_pre";
@@ -527,6 +551,8 @@ DBFX.Web.NavControls.SlideShow = function () {
     ss.UnLoad = function () {
         clearInterval(ss.aniTimeId);
     }
+
+
 
     ss.OnCreateHandle();
     return ss;

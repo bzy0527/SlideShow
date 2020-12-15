@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="643991c3-1560-4f1d-aaa8-c5fd248b3530" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/slideShow.css" beforeDir="false" afterPath="$PROJECT_DIR$/slideShow.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/slideShow.html" beforeDir="false" afterPath="$PROJECT_DIR$/slideShow.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/slideShow.js" beforeDir="false" afterPath="$PROJECT_DIR$/slideShow.js" afterDir="false" />
     </list>
@@ -22,6 +23,12 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="JsFlowSettings">
+    <service-enabled>true</service-enabled>
+    <exe-path />
+    <other-services-enabled>true</other-services-enabled>
+    <auto-save>true</auto-save>
+  </component>
   <component name="ProjectId" id="1W3iRdRz2lqcgZJ7aqZZQwuKIzs" />
   <component name="PropertiesComponent">
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
@@ -29,6 +36,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="settings.editor.selected.configurable" value="Settings.JavaScript" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -70,7 +78,10 @@
       <workItem from="1575866760148" duration="947000" />
       <workItem from="1578384674743" duration="1002000" />
       <workItem from="1579163856140" duration="1069000" />
-      <workItem from="1603695697410" duration="5345000" />
+      <workItem from="1603695697410" duration="8273000" />
+      <workItem from="1604628038422" duration="1214000" />
+      <workItem from="1604629744393" duration="7000" />
+      <workItem from="1607991806398" duration="5654000" />
     </task>
     <servers />
   </component>
