@@ -220,13 +220,45 @@ DBFX.Web.NavControls.SlideShow = function () {
     ss.interval = 40;
 
     
-    //界面尺寸改变 重新计算轮播尺寸
+    //20201215-界面尺寸改变 重新计算轮播尺寸
     ss.resize = window.onresize;
     window.addEventListener('resize',function (ev) {
         (typeof ss.resize == 'function') && ss.resize(ev);
-        ss.ItemSource && (ss.ItemSource = ss.ItemSource);
+        // ss.ItemSource && (ss.ItemSource = ss.ItemSource);
+        ss.RecomputeSize();
     },false);
 
+    //重新计算图片显示尺寸
+    ss.RecomputeSize = function(){
+        var imgs = ss.Containers;
+        if(!(Array.isArray(imgs) && imgs.length>0)) return;
+        var bcr = window.getComputedStyle(ss.VisualElement, null);
+        ss.cWidth = parseFloat(bcr.width);
+        imgs.forEach(function (imgE) {
+            imgE.style.width = bcr.width;
+            // imgE.ImageE.src = imgE.ImageE.src;
+        })
+        
+    }
+    
+    //TODO：设置图片填充模式
+    /**
+     * 1、ScaleToFill:缩放图片,使图片充满容器。没有aspect，图片未必保持长宽比例协调，有可能会拉伸至变形。
+     * 2、AspectFit:在保持长宽比的前提下，缩放图片，使得图片在容器内完整显示出来。
+     * 3、AspectFill:在保持长宽比的前提下，缩放图片，使图片充满容器。
+     * 4、
+     */
+    ss.fillMode = 'ScaleToFill';
+    Object.defineProperty(ss, "FillMode", {
+        get: function () {
+            return ss.fillMode;
+        },
+        set: function (v) {
+            ss.fillMode = v;
+        }
+    });
+    
+    
     //处理鼠标悬停
     ss.VisualElement.onmouseover = function (e) {
         e.cancelBubble = true;
@@ -430,7 +462,7 @@ DBFX.Web.NavControls.SlideShow = function () {
     //创建幻灯片
     ss.createSlideView = function () {
         var datas = ss.itemSource;
-
+        ss.Containers = [];
         ss.images = [];
         ss.pageIndicators = [];
         ss.PIDiv.innerHTML = "";
@@ -448,26 +480,33 @@ DBFX.Web.NavControls.SlideShow = function () {
             var imgContainerE = document.createElement("DIV");
             imgContainerE.className = "NavControls_SlideShowImgContainer";
             var imageE = document.createElement("IMG");
+            
+            imgContainerE.ImageE = imageE;
+            //设置图片填充模式
+            imgContainerE.setAttribute('fillMode',ss.FillMode);
             ss.images.push(imgContainerE);
+            ss.Containers.push(imgContainerE);
 
             imageE.dataContext = datas[i];
-
-            imageE.onclick = function (ev) {
+    
+            imgContainerE.onclick = function (ev) {
                 // ev.stopPropagation();
                 // console.log("点击图片");
 
                 //TODO:处理点击事件
                 ss.OnSlideClick(ev);
             }
-
-            imageE.ontouchstart = function (ev) {
+    
+            imgContainerE.ontouchstart = function (ev) {
 
             }
-
-
+            
             imgContainerE.appendChild(imageE);
             imageE.className = "NavControls_SlideShowImg";
-            imageE.src = datas[i].ImageUrl;
+            
+            // imageE.src = datas[i].ImageUrl;
+            imgContainerE.style.backgroundImage = 'url('+datas[i].ImageUrl+')';
+            
             ss.PageDiv.appendChild(imgContainerE);
             // imageE.style.width = parseFloat(bcr.width) + "px";
             imgContainerE.style.width = parseFloat(bcr.width) + "px";
@@ -500,7 +539,9 @@ DBFX.Web.NavControls.SlideShow = function () {
 
         }
         try{
-            ss.PageDiv.appendChild(ss.PageDiv.children[0].cloneNode(true));
+            var copyNode = ss.PageDiv.children[0].cloneNode(true);
+            ss.PageDiv.appendChild(copyNode);
+            ss.Containers.push(copyNode)
         }catch (e) {
             
         }
@@ -565,6 +606,7 @@ DBFX.Serializer.SlideShowSerializer = function () {
         DBFX.Serializer.SerialProperty("SwitchStyle", c.SwitchStyle, xe);
         DBFX.Serializer.SerialProperty("SwitchTime", c.SwitchTime, xe);
         DBFX.Serializer.SerialProperty("PageIndicatorP", c.PageIndicatorP, xe);
+        DBFX.Serializer.SerialProperty("FillMode", c.FillMode, xe);
 
     }
 
@@ -573,6 +615,7 @@ DBFX.Serializer.SlideShowSerializer = function () {
         DBFX.Serializer.DeSerialProperty("SwitchStyle", c, xe);
         DBFX.Serializer.DeSerialProperty("SwitchTime", c, xe);
         DBFX.Serializer.DeSerialProperty("PageIndicatorP", c, xe);
+        DBFX.Serializer.DeSerialProperty("FillMode", c, xe);
     }
 }
 

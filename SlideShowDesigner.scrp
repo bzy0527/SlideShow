@@ -25,6 +25,15 @@
          </Items>
     </c>
     <c T="wc:BreakLine" />
+    <c T="wc:Label" Text="图片填充模式:" Margin="4px 2px 2px 16px" Float="left"/>
+    <c T="wc:ComboBox" Display="block" Height="26px" Margin="2px 14px 2px 16px" DataBindings="{&quot;Path&quot;:&quot;PageIndicatorP&quot;,&quot;Mode&quot;:&quot;OneWay&quot;,&quot;Source&quot;:&quot;&quot;}" >
+        <Items>
+              <Item Text="缩放填充" Value="ScaleToFill"  ImageUrl="" />
+              <Item Text="等比适配" Value="AspectFit"  ImageUrl="" />
+              <Item Text="等比填充" Value="AspectFill"  ImageUrl="" />
+         </Items>
+    </c>
+    <c T="wc:BreakLine" />
     <c T="wc:Label" Text="页面指示器位置:" Margin="4px 2px 2px 16px" Float="left"/>
     <c T="wc:ComboBox" Display="block" Height="26px" Margin="2px 14px 2px 16px" DataBindings="{&quot;Path&quot;:&quot;PageIndicatorP&quot;,&quot;Mode&quot;:&quot;OneWay&quot;,&quot;Source&quot;:&quot;&quot;}" >
         <Items>
